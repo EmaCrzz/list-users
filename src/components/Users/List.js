@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import List from '@material-ui/core/List'
@@ -12,6 +12,7 @@ import DetailsIcon from '@material-ui/icons/NavigateNext'
 import Skeleton from '@material-ui/lab/Skeleton'
 
 import UserIdContext from 'context/UserIdContext'
+import useListUsers from 'Hooks/useListUsers'
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -22,18 +23,8 @@ const useStyles = makeStyles(() => ({
 
 export default function ListUsers () {
   const classes = useStyles()
-  const [users, setUsers] = useState([0, 1, 3, 4])
-  const [loading, setLoading] = useState(true)
   const { setUserId } = useContext(UserIdContext)
-
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then(dataUser => {
-        setLoading(false)
-        setUsers(dataUser)
-      })
-  }, [])
+  const { users, loading } = useListUsers()
 
   const handleClick = id => setUserId(id)
 
@@ -47,12 +38,12 @@ export default function ListUsers () {
         >
           <ListItemAvatar>
             {loading
-              ? <Skeleton variant="circle" width={40} height={40} />
+              ? <Skeleton height={40} variant="circle" width={40} />
               : (
-                  <Avatar>
-                    <UserIcon />
-                  </Avatar>
-                )}
+                <Avatar>
+                  <UserIcon />
+                </Avatar>
+              )}
           </ListItemAvatar>
           <ListItemText
             primary={loading ? <Skeleton variant="text" /> : item.name}

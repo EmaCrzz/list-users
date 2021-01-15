@@ -10,10 +10,10 @@ export default function App () {
   return (
     <Layout>
       <Grid container>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} xs={12}>
           <List />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} xs={12}>
           <Details />
         </Grid>
       </Grid>

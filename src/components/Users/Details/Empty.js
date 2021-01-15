@@ -21,8 +21,8 @@ export default function DetailEmpty () {
   const classes = useStyles()
 
   return (
-    <Container maxWidth="sm" className={classes.containerImg}>
-      <img className={classes.img} src={emptySVG} alt="empty" />
+    <Container className={classes.containerImg} maxWidth="sm">
+      <img alt="empty" className={classes.img} src={emptySVG} />
       <Typography align="center" color="textSecondary">
         Selecciona un usuario
       </Typography>
