@@ -21,7 +21,13 @@ const theme = createMuiTheme({
           outline: 'none'
         }
       }
+    },
+    MuiIconButton: {
+      label: {
+        color: 'white'
+      }
     }
+
   }
 })
 
