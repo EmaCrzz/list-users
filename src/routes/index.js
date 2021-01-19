@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 
 import Layout from 'components/Layout'
 
-import IsLoginContext from 'context/IsLoginContext'
 import Login from 'components/Login/Login'
 import Register from 'components/Register/Register'
 import Home from 'components/Home/Home'
+import IsLoginContext from 'context/IsLoginContext'
 
 export default function Routes () {
   const { isLogin } = useContext(IsLoginContext)
@@ -14,7 +14,7 @@ export default function Routes () {
   if (!isLogin) {
     return (
       <Router>
-        <Layout bool='false' info='Login' listUsers='https://github.com/EmaCrzz/list-users'>
+        <Layout bool='false' listUsers='https://github.com/EmaCrzz/list-users'>
           <Switch>
             <Route component={Register} exact path="/register" />
             <Route component={Login} exact path='/login' />
@@ -26,8 +26,9 @@ export default function Routes () {
   }
 
   return (
+
     <Router>
-      <Layout bool='true' info='Perfil' listUsers='Lista de Usuarios'>
+      <Layout bool='true' listUsers='Lista de Usuarios'>
         <Switch>
           <Route component={Home} exact path='/'/>
           <Redirect to='/' />

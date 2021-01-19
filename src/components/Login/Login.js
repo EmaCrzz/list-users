@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid'
@@ -17,16 +17,19 @@ export default function Login () {
 
   const [checked, setChecked] = React.useState({ checked: true })
   const [dataInput, setDataInput] = React.useState({ user: '', password: '' })
-  const { setIsLogin } = useContext(IsLoginContext)
+  const { loggedin } = useContext(IsLoginContext)
+  const [error, setError] = useState(false)
 
   const handleOnChange = (e) => {
     e.target.name === 'checked'
       ? setChecked({ ...checked, [e.target.name]: e.target.checked })
       : setDataInput({ ...dataInput, [e.target.name]: e.target.value })
+    setError(false)
   }
 
   const handleOnClick = () => {
-    localStorage.getItem(JSON.stringify({ user: dataInput.user, password: dataInput.password })) ? setIsLogin(true) : setIsLogin(false)
+    const { error, msg } = loggedin({ user: dataInput.user, password: dataInput.password })
+    error && setError(msg)
   }
 
   const handleOnSubmit = (e) => {
@@ -43,8 +46,13 @@ export default function Login () {
           </Typography>
           <Divider className={`${classes.width} ${classes.itemText}`}/>
 
+          {error && <Typography align="center" color="error" component="div" variant="subtitle1">
+            {error}
+          </Typography>}
+
           <TextField
             className={`${classes.itemText}`}
+            error={!!error}
             label="Nombre de Usuario"
             name="user"
             onChange={handleOnChange}
@@ -52,6 +60,7 @@ export default function Login () {
           />
           <TextField
             className={classes.itemText}
+            error={!!error}
             label="Contraseña"
             name="password"
             onChange={handleOnChange}
