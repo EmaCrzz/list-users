@@ -51,8 +51,10 @@ export default function Login () {
           </Typography>}
 
           <TextField
-            className={`${classes.itemText}`}
+            autoFocus
+            className={classes.itemText}
             error={!!error}
+            fullWidth
             label="Nombre de Usuario"
             name="user"
             onChange={handleOnChange}
@@ -61,6 +63,7 @@ export default function Login () {
           <TextField
             className={classes.itemText}
             error={!!error}
+            fullWidth
             label="Contraseña"
             name="password"
             onChange={handleOnChange}
