@@ -6,8 +6,8 @@ export const initialData = {
 }
 
 export const initialStateError = {
-  username: false,
-  password: false,
-  password2: false,
-  email: false
+  username: { error: false, msg: '' },
+  password: { error: false, msg: '' },
+  password2: { error: false, msg: '' },
+  email: { error: false, msg: '' }
 }

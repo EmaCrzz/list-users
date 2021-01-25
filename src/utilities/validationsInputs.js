@@ -1,9 +1,19 @@
+import { checkExist } from 'utilities/users'
+
 export const validateUsername = (username) => {
-  if (username.length < 8) {
-    return { error: true, msg: 'El usuario debe contener al menos 8 caracteres' }
+  let error = false
+  let msg = ''
+  if (checkExist({ username })) {
+    error = true
+    msg = 'Nombre de usuario existente'
   }
 
-  return { error: false, msg: '' }
+  if (username.length < 8) {
+    error = true
+    msg = 'El usuario debe contener al menos 8 caracteres'
+  }
+
+  return { error, msg }
 }
 
 export const validatePassword = (password) => {

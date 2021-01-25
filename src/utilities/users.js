@@ -13,8 +13,14 @@ export const register = instanceNewUser => {
 }
 
 export const validate = (dataInput) => {
-  const errorUsername = validateUsername(dataInput.username)
-  const errorPassword = validatePassword(dataInput.password)
-  const errorPassword2 = validateSamePasswords(dataInput.password, dataInput.password2)
-  const errorEmail = validateEmail(dataInput.email)
+  const username = validateUsername(dataInput.username)
+  const password = validatePassword(dataInput.password)
+  const password2 = validateSamePasswords(dataInput.password, dataInput.password2)
+  const email = validateEmail(dataInput.email)
+
+  if (!username.error && !password.error && !password2.error && !email.error) {
+    return { errors: { username, password, password2, email }, ifError: false }
+  } else {
+    return { errors: { username, password, password2, email }, ifError: true }
+  }
 }

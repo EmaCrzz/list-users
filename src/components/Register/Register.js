@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider'
 import Container from '@material-ui/core/Container'
 
 import { useStyles } from './stylesRegister'
-import { register, checkExist, validate } from 'utilities/users'
+import { register, validate } from 'utilities/users'
 import { initialData, initialStateError } from './Logic/constants'
 
 export default function Register () {
@@ -23,30 +23,19 @@ export default function Register () {
   const handleOnChange = (e) => setDataInput({ ...dataInput, [e.target.name]: e.target.value })
 
   const handleOnClick = () => {
-    if (errorUsername.error) {
-      setError({ username: errorUsername.msg })
-    } else if (errorPassword.error) {
-      setError({ password: errorPassword.msg })
-    } else if (errorPassword2.error) {
-      setError({ password2: errorPassword2.msg })
-    } else if (errorEmail.error) {
-      setError({ email: errorEmail.msg })
-    } else {
-      if (checkExist({ username: dataInput.username })) {
-        swal.fire({
-          title: 'Error al registrarse',
-          icon: 'error'
-        })
-      } else {
-        register(dataInput)
-        setDataInput(initialData)
-        swal.fire({
-          title: 'Se ha registrado correctamente',
-          icon: 'success'
-        })
-        history.push('/login')
-      }
+    const { errors, ifError } = validate(dataInput)
+
+    if (!ifError) {
+      register(dataInput)
+      setDataInput(initialData)
+      swal.fire({
+        title: 'Se ha registrado correctamente',
+        icon: 'success'
+      })
+      history.push('/login')
+      return
     }
+    setError(errors)
   }
 
   const handleOnSubmit = (e) => {
@@ -64,8 +53,8 @@ export default function Register () {
             <Divider className={`${classes.width} ${classes.itemText}`} />
             <TextField
               className={`${classes.itemText}`}
-              error={!!error.username}
-              helperText={error.username || ''}
+              error={error.username.error}
+              helperText={error.username.msg || ''}
               label="Nombre de Usuario"
               name="username"
               onChange={handleOnChange}
@@ -73,8 +62,8 @@ export default function Register () {
             />
             <TextField
               className={classes.itemText}
-              error={!!error.password}
-              helperText={error.password || ''}
+              error={error.password.error}
+              helperText={error.password.msg || ''}
               label="Contraseña"
               name="password"
               onChange={handleOnChange}
@@ -82,8 +71,8 @@ export default function Register () {
             />
             <TextField
               className={classes.itemText}
-              error={!!error.password2}
-              helperText={error.password2 || ''}
+              error={error.password2.error}
+              helperText={error.password2.msg || ''}
               label="Repetir Contraseña"
               name="password2"
               onChange={handleOnChange}
@@ -91,8 +80,8 @@ export default function Register () {
             />
             <TextField
               className={classes.itemText}
-              error={!!error.email}
-              helperText={error.email || ''}
+              error={error.email.error}
+              helperText={error.email.msg || ''}
               label="Email"
               name="email"
               onChange={handleOnChange}
