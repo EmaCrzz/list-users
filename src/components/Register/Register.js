@@ -44,14 +44,18 @@ export default function Register () {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Grid container justify='center' style={{ height: '90vh' }}>
+      <Grid container justify="center" style={{ height: '90vh' }}>
         <Grid item style={{ display: 'flex' }}>
           <form className={classes.container} onSubmit={handleOnSubmit}>
-            <Typography className={`${classes.itemText} ${classes.title}`} variant="h6">
-                        Registrate
+            <Typography
+              className={`${classes.itemText} ${classes.title}`}
+              variant="h6"
+            >
+              Registrate
             </Typography>
             <Divider className={`${classes.width} ${classes.itemText}`} />
             <TextField
+              autoFocus
               className={`${classes.itemText}`}
               error={error.username.error}
               helperText={error.username.msg || ''}
@@ -92,8 +96,9 @@ export default function Register () {
               onClick={handleOnClick}
               style={{ marginTop: '1rem' }}
               type="submit"
-              variant="contained">
-                Registrarse
+              variant="contained"
+            >
+              Registrarse
             </Button>
           </form>
         </Grid>
