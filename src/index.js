@@ -1,23 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Routes from 'routes'
 
-import { ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import theme from 'theme'
 import { UserIdContextProvider } from 'context/UserIdContext'
 import { IsLoginContextProvider } from 'context/IsLoginContext'
-import Routes from 'routes'
+import { DarkModeContextProvider } from 'context/DarkModeContext'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <DarkModeContextProvider>
       <IsLoginContextProvider>
         <UserIdContextProvider>
           <Routes />
         </UserIdContextProvider>
       </IsLoginContextProvider>
-    </ThemeProvider>
+    </DarkModeContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

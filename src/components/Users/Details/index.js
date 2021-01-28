@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { withRouter } from 'react-router-dom'
 
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
@@ -12,6 +13,8 @@ import PublicIcon from '@material-ui/icons/Public'
 import LocationIcon from '@material-ui/icons/LocationOn'
 import WorkIcon from '@material-ui/icons/Work'
 import Button from '@material-ui/core/Button'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import Avatar from 'components/Avatar'
 import UserSelectContext from 'context/UserIdContext'
@@ -20,11 +23,11 @@ import { useStyles, ListItem } from './styles.js'
 import { LoadingText } from './LoadingText'
 import useListUsers from 'Hooks/useListUsers'
 
-export default function Details () {
+const Details = ({ match, history }) => {
+  const matchId = match && match.params.id
   const classes = useStyles()
-
   const { userId } = useContext(UserSelectContext)
-  const { loading, userDetails, location, company } = useListUsers({ id: userId })
+  const { loading, userDetails, location, company } = useListUsers({ id: userId || matchId })
 
   const userLoading = [0, 1, 2, 3]
   const items = [
@@ -35,14 +38,34 @@ export default function Details () {
     { icon: <PublicIcon />, key: 'website' }
   ]
 
-  if (!userId) {
+  const matches = useMediaQuery('(min-width:800px)')
+
+  const goBack = () => {
+    history.push('/home')
+  }
+
+  const handleOnClick = (id) => {
+    history.push(`/tasks/user/${id}`)
+  }
+
+  if (!userId && !matchId) {
     return <DetailEmpty />
   }
 
-  console.log(items)
-
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="xl">
+      {!matches &&
+       <Button
+         className={classes.button}
+         color="primary"
+         onClick={goBack}
+         startIcon={<ArrowBackIcon />}
+         variant="contained"
+       >
+        Atrás
+       </Button>
+      }
+
       <div className={classes.root}>
         <Avatar />
       </div>
@@ -77,7 +100,7 @@ export default function Details () {
 
             </List>
             <div className={classes.item}>
-              <Button variant="outlined">VER TAREAS</Button>
+              <Button onClick={() => handleOnClick(userId)} variant="outlined">VER TAREAS</Button>
             </div>
           </>
         )}
@@ -85,3 +108,5 @@ export default function Details () {
     </Container>
   )
 }
+
+export default withRouter(Details)

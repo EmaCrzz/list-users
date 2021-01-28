@@ -8,9 +8,9 @@ export const validateUsername = (username) => {
     msg = 'Nombre de usuario existente'
   }
 
-  if (username.length < 8) {
+  if (username.length < 6) {
     error = true
-    msg = 'El usuario debe contener al menos 8 caracteres'
+    msg = 'El usuario debe contener al menos 6 caracteres'
   }
 
   return { error, msg }

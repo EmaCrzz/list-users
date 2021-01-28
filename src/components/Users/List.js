@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import List from '@material-ui/core/List'
@@ -21,12 +22,16 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function ListUsers () {
+export default function ListUsers ({ matches }) {
   const classes = useStyles()
   const { setUserId } = useContext(UserIdContext)
   const { users, loading } = useListUsers()
+  const history = useHistory()
 
-  const handleClick = id => setUserId(id)
+  const handleClick = id => {
+    setUserId(id)
+    !matches && history.push(`/user/details/${id}`)
+  }
 
   return (
     <List className={classes.list}>

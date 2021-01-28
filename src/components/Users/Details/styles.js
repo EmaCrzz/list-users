@@ -22,6 +22,10 @@ export const useStyles = makeStyles(theme => ({
   },
   itemLoading: {
     display: 'flex'
+  },
+  button: {
+    height: '2.5rem',
+    marginTop: '2rem'
   }
 
 }))
