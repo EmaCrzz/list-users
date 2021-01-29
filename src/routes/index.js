@@ -2,15 +2,13 @@ import React, { useContext } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Layout from 'components/Layout'
 import Login from 'components/Login/Login'
 import Register from 'components/Register/Register'
 import Home from 'components/Home/Home'
 import IsLoginContext from 'context/IsLoginContext'
-import Details from 'components/Users/Details'
+import { MemoizedDetails } from 'components/Users/Details'
 import ListTasks from 'components/Tasks/ListTasks'
 
 export default function Routes () {
@@ -32,12 +30,11 @@ export default function Routes () {
   }
 
   return (
-
     <Router>
       <Layout bool='true' listUsers='Lista de Usuarios'>
         <Switch>
           <Route component={Home} exact path='/home'/>
-          {!matches && <Route component={Details} exact path='/user/details/:id' />}
+          {!matches && <Route component={MemoizedDetails} exact path='/user/details/:id' />}
           <Route component={ListTasks} exact path='/tasks/user/:id'/>
           <Redirect to='/home' />
         </Switch>

@@ -17,7 +17,7 @@ export default function MenuProfile ({ info }) {
   const { logout } = useContext(IsLoginContext)
   const isAuth = localStorage.getItem('isAuth')
 
-  const handleClick = (event) => { setAnchorEl(event.currentTarget); console.log(event) }
+  const handleClick = event => setAnchorEl(event.currentTarget)
   const goRegister = () => {
     info.toLowerCase() === 'login' && history.push('/login')
     info.toLowerCase() === 'registrarse' && history.push('/register')

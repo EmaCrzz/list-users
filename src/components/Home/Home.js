@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import List from 'components/Users/List'
-import Details from 'components/Users/Details'
+import { MemoizedDetails } from 'components/Users/Details'
 
-export default function Home () {
+export default function Home (props) {
   const matches = useMediaQuery('(min-width:800px)')
 
   if (matches) {
@@ -16,7 +16,7 @@ export default function Home () {
           <List matches={matches} />
         </Grid>
         <Grid item sm={6} xs={12}>
-          <Details/>
+          <MemoizedDetails />
         </Grid>
       </Grid>
     )

@@ -9,8 +9,6 @@ export const returnTheme = (darkMode) => {
   const primaryColor = darkMode ? grey[500] : deepPurple[500]
   const secondaryColor = darkMode ? teal[300] : purple[500]
 
-  console.log(secondaryColor)
-
   const theme = createMuiTheme({
     palette: {
       type: paletteType,

@@ -9,6 +9,7 @@ export default function useListUsers ({ id } = { id: '' }) {
   const [company, setCompany] = useState('')
 
   useEffect(() => {
+    setLoading(true)
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
       .then(res => res.json())
       .then(dataUser => {

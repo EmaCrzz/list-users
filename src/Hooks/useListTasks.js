@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function useListTasks ({ id }) {
   const [tasks, setTasks] = useState([0, 1, 2, 3, 4, 5, 6])

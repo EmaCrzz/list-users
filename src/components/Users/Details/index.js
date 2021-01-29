@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { withRouter } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
@@ -23,22 +23,21 @@ import { useStyles, ListItem } from './styles.js'
 import { LoadingText } from './LoadingText'
 import useListUsers from 'Hooks/useListUsers'
 
-const Details = ({ match, history }) => {
+const Details = ({ match }) => {
   const matchId = match && match.params.id
   const classes = useStyles()
+  const history = useHistory()
+  const matches = useMediaQuery('(min-width:800px)')
   const { userId } = useContext(UserSelectContext)
   const { loading, userDetails, location, company } = useListUsers({ id: userId || matchId })
-
   const userLoading = [0, 1, 2, 3]
   const items = [
     { icon: <EmailIcon />, key: 'email' },
     { icon: <PhoneIcon />, key: 'phone' },
-    { icon: <LocationIcon />, key: location },
-    { icon: <WorkIcon />, key: company },
+    { icon: <LocationIcon />, key: location || 'loaction' },
+    { icon: <WorkIcon />, key: company || 'company' },
     { icon: <PublicIcon />, key: 'website' }
   ]
-
-  const matches = useMediaQuery('(min-width:800px)')
 
   const goBack = () => {
     history.push('/home')
@@ -51,62 +50,65 @@ const Details = ({ match, history }) => {
   if (!userId && !matchId) {
     return <DetailEmpty />
   }
+  const userName = loading ? <LoadingText variant="text" width={100} /> : userDetails.name
 
   return (
     <Container maxWidth="xl">
-      {!matches &&
-       <Button
-         className={classes.button}
-         color="primary"
-         onClick={goBack}
-         startIcon={<ArrowBackIcon />}
-         variant="contained"
-       >
-        Atrás
-       </Button>
-      }
-
+      {!matches && (
+        <Button
+          className={classes.button}
+          color="primary"
+          onClick={goBack}
+          startIcon={<ArrowBackIcon />}
+          variant="contained"
+        >
+          Atrás
+        </Button>
+      )}
       <div className={classes.root}>
         <Avatar />
       </div>
-
-      <Typography className={`${classes.username} ${classes.item}`} component="span" variant="h6">
-        {loading ? <LoadingText variant="text" width={100} /> : userDetails.name}
+      <Typography
+        className={`${classes.username} ${classes.item}`}
+        component="span"
+        variant="h6"
+      >
+        {userName}
       </Typography>
-      {loading
-        ? userLoading.map(item => (
-          <div className={classes.itemLoading} key={item}>
-            <LoadingText
-              variant="circle"
-              width={30}
-            />
-            <LoadingText
-              variant="text"
-              width={200}
-            />
+      {loading && (
+        <List>
+          {userLoading.map(item => (
+            <ListItem dense disableGutters key={item}>
+              <ListItemIcon>
+                <LoadingText variant="circle" width={30} />
+              </ListItemIcon>
+              <ListItemText
+                primary={<LoadingText variant="text" width={300} />}
+              />
+            </ListItem>
+          ))}
+        </List>
+      )}
+      {!loading && (
+        <>
+          <List>
+            {items.map(item => (
+              <ListItem key={item.key}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText secondary={userDetails[item.key] || item.key} />
+              </ListItem>
+            ))}
+          </List>
+          <div className={classes.item}>
+            <Button onClick={() => handleOnClick(userId)} variant="outlined">
+              VER TAREAS
+            </Button>
           </div>
-        ))
-        : (
-          <>
-            <List>
-              {items.map(item => (
-                <ListItem key={item.key}>
-                  <ListItemIcon>
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText secondary={userDetails[item.key] || item.key} />
-                </ListItem>
-              ))}
-
-            </List>
-            <div className={classes.item}>
-              <Button onClick={() => handleOnClick(userId)} variant="outlined">VER TAREAS</Button>
-            </div>
-          </>
-        )}
-
+        </>
+      )}
     </Container>
   )
 }
 
-export default withRouter(Details)
+export default Details
+export const MemoizedDetails = React.memo(Details)
