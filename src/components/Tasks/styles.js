@@ -1,7 +1,7 @@
 import makeStyles from '@material-ui/core/styles/makeStyles'
 
 export const useStyles = makeStyles(({ spacing, pallette }) => ({
-  root: {
+  card: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -15,8 +15,11 @@ export const useStyles = makeStyles(({ spacing, pallette }) => ({
   title: {
     fontSize: 14
   },
-  pos: {
-    marginBottom: 12
+  pending: {
+    marginBottom: 12,
+    color: '#d1a400',
+    textShadow: '1px 1px 2px #d5d5d5',
+    fontWeight: 'bold'
   },
   container: {
     padding: spacing(0, 1),

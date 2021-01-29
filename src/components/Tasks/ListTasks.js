@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -15,17 +14,6 @@ import useListUsers from 'Hooks/useListUsers'
 
 import { LoadingTask } from './loadingTask'
 import { useStyles } from './styles'
-
-const theme = createMuiTheme({
-  overrides: {
-    MuiTypography: {
-      colorTextSecondary: {
-        color: '#d1a400',
-        textShadow: '1px 1px 2px #d5d5d5'
-      }
-    }
-  }
-})
 
 export default function ListTasks ({ history, match }) {
   const classes = useStyles()
@@ -62,7 +50,7 @@ export default function ListTasks ({ history, match }) {
       </div>}
       { !loading && <div className={classes.container}>
         {tasks.map(item => (
-          <Card className={classes.root} key={item.id}>
+          <Card className={classes.card} key={item.id}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 author: {users.name}
@@ -76,11 +64,9 @@ export default function ListTasks ({ history, match }) {
                   Realizada
                 </Typography>}
               {!item.completed &&
-                <ThemeProvider theme={theme}>
-                  <Typography className={classes.pos} color="textSecondary">
-                    Pendiente
-                  </Typography>
-                </ThemeProvider>}
+                <Typography className={classes.pending} >
+                  Pendiente
+                </Typography>}
             </CardContent>
             <CardActions>
               <Button size="small">Learn More</Button>

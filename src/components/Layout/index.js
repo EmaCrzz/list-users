@@ -26,7 +26,7 @@ const getInfo = ({ pathname }) => {
       return 'Registrarse'
 
     default:
-      return ''
+      return 'Perfil'
   }
 }
 
