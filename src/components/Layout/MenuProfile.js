@@ -6,18 +6,19 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import SettingsIcon from '@material-ui/icons/Settings'
 
 import { Menu, MenuItem } from './stylesLayout'
 import IsLoginContext from 'context/IsLoginContext'
 
 export default function MenuProfile ({ info }) {
-  const [anchorEl, setAnchorEl] = React.useState(null)
-
   const history = useHistory()
+  const [anchorEl, setAnchorEl] = React.useState(null)
   const { logout } = useContext(IsLoginContext)
   const isAuth = localStorage.getItem('isAuth')
 
   const handleClick = event => setAnchorEl(event.currentTarget)
+
   const goRegister = () => {
     info.toLowerCase() === 'login' && history.push('/login')
     info.toLowerCase() === 'registrarse' && history.push('/register')
@@ -25,6 +26,11 @@ export default function MenuProfile ({ info }) {
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const goToSettings = () => {
+    history.push('/settings/colors')
+    handleClose()
   }
 
   // si está logueado
@@ -53,6 +59,12 @@ export default function MenuProfile ({ info }) {
               <AccountCircleIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText primary="Configuración de cuenta" />
+          </MenuItem>
+          <MenuItem onClick={goToSettings}>
+            <ListItemIcon>
+              <SettingsIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Settings" />
           </MenuItem>
           <MenuItem onClick={logout}>
             <ListItemIcon>

@@ -10,6 +10,7 @@ import Home from 'components/Home/Home'
 import IsLoginContext from 'context/IsLoginContext'
 import { MemoizedDetails } from 'components/Users/Details'
 import ListTasks from 'components/Tasks/ListTasks'
+import ColorPicker from 'components/ColorPicker'
 
 export default function Routes () {
   const { isLogin } = useContext(IsLoginContext)
@@ -36,6 +37,7 @@ export default function Routes () {
           <Route component={Home} exact path='/home'/>
           {!matches && <Route component={MemoizedDetails} exact path='/user/details/:id' />}
           <Route component={ListTasks} exact path='/tasks/user/:id'/>
+          <Route component={ColorPicker} exact path='/settings/colors'/>
           <Redirect to='/home' />
         </Switch>
       </Layout>

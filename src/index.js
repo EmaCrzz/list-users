@@ -7,7 +7,7 @@ import { IsLoginContextProvider } from 'context/IsLoginContext'
 import { DarkModeContextProvider } from 'context/DarkModeContext'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <DarkModeContextProvider>
       <IsLoginContextProvider>
         <UserIdContextProvider>
@@ -15,6 +15,6 @@ ReactDOM.render(
         </UserIdContextProvider>
       </IsLoginContextProvider>
     </DarkModeContextProvider>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 )
