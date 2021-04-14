@@ -12,6 +12,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { useStyles, Brightness2Icon, WbSunnyIcon, FormControlLabel } from './stylesLayout'
 import MenuProfile from './MenuProfile'
+import MenuColorManager from './MenuColorManager'
 import DarkModeContext from 'context/DarkModeContext'
 
 const getInfo = ({ pathname }) => {
@@ -48,14 +49,7 @@ export default function Layout ({ children, listUsers, bool }) {
         <AppBar position="sticky">
           <Toolbar>
             {bool === 'true' &&
-            <IconButton
-              aria-label="menu"
-              className={classes.menuButton}
-              color="inherit"
-              edge="start"
-            >
-              <MenuIcon />
-            </IconButton>
+              <MenuColorManager/>
             }
             <Typography className={classes.title} variant={bool === 'true' ? 'h6' : 'subtitle2'} >
               {listUsers}

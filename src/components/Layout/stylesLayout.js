@@ -56,6 +56,9 @@ export const Menu = withStyles({
 
 export const MenuItem = withStyles((theme) => ({
   root: {
+    '& .MuiListItemIcon-root': {
+      minWidth: '36px'
+    },
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {

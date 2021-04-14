@@ -1,13 +1,11 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import deepPurple from '@material-ui/core/colors/deepPurple'
 import grey from '@material-ui/core/colors/grey'
-import purple from '@material-ui/core/colors/purple'
 import teal from '@material-ui/core/colors/teal'
 
-export const returnTheme = (darkMode) => {
+export const returnTheme = (darkMode, colorLight) => {
   const paletteType = darkMode ? 'dark' : 'light'
-  const primaryColor = darkMode ? grey[500] : deepPurple[500]
-  const secondaryColor = darkMode ? teal[300] : purple[500]
+  const primaryColor = darkMode ? grey[500] : colorLight.primary
+  const secondaryColor = darkMode ? teal[300] : colorLight.secondary
 
   const theme = createMuiTheme({
     palette: {
@@ -42,7 +40,7 @@ export const returnTheme = (darkMode) => {
       },
       MuiIconButton: {
         label: {
-          color: 'white'
+          /* color: 'white' con esta propiedad en este lugar, se dejan de ver los checkox */
         }
       }
 

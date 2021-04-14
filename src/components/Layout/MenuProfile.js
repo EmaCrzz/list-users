@@ -14,8 +14,7 @@ export default function MenuProfile ({ info }) {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const history = useHistory()
-  const { logout } = useContext(IsLoginContext)
-  const isAuth = localStorage.getItem('isAuth')
+  const { logout, isLogin } = useContext(IsLoginContext)
 
   const handleClick = event => setAnchorEl(event.currentTarget)
   const goRegister = () => {
@@ -28,7 +27,7 @@ export default function MenuProfile ({ info }) {
   }
 
   // si está logueado
-  if (isAuth === 'true') {
+  if (isLogin) {
     return (
       <div>
         <Button
